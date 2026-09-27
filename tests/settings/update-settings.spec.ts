@@ -26,19 +26,14 @@ test('Update User Settings successfully', async ({ page }) => {
 test('Should not update settings with invalid email', async ({ page }) => {
   const homePage = new HomePage(page);
   const settingsPage = new SettingsPage(page);
-
   // Go to Home page
   await homePage.goto();
-
   // Click Settings
   await homePage.clickSettings();
-
   // Enter invalid email
   await settingsPage.fillEmail('abc');
-
   // Click Update Settings
   await settingsPage.clickUpdateSettings();
-
   // Verify user remains on Settings page
   await expect(page).toHaveURL(/\/settings/);
 });

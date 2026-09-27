@@ -32,7 +32,12 @@ test('Delete Article successfully', async ({ page, request }) => {
 
   // Delete Article
   await articlePage.clickDeleteArticle();
-  
+  // Verify redirected to Home page
+  await expect(page).toHaveURL('/');
+
+  // Verify deleted article is no longer visible
+  await expect(page.getByText(articleTitle, { exact: true })).not.toBeVisible();
+
 });
 
 

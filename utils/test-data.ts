@@ -1,13 +1,13 @@
 export const testData = {
-  article: {
-    title: 'Playwright Test Article18',
+    article: {
+    title: `Test Article ${Date.now()}`,
     description: 'This is a Playwright automation test',
     body: 'This article was created using Playwright automation.',
     tag: 'playwright',
   },
 
   editArticle: {
-    title: 'Updated Playwright Article14',
+    title: `Updated Article ${Date.now()}`,
     description: 'Updated article description',
     body: 'This article has been edited using Playwright.',
     tag: 'edit-test',
@@ -24,7 +24,7 @@ export const testData = {
   },
 
   settings: {
-    username: 'updated11',
+    username: 'updated12',
     bio: 'QA Automation using Playwright',
   },
 };

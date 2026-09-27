@@ -25,7 +25,6 @@ test.describe.serial('Create Article Tests', () => {
     await articlePage.clickPublishArticle();
     await expect(page.getByText(testData.article.title, { exact: true }).first()).toBeVisible();
 
-
   });
   test('Should not create article with duplicate title', async ({ page }) => {
     const homePage = new HomePage(page);
