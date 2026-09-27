@@ -7,31 +7,21 @@ export class HomePage {
   readonly settingsLink: Locator;
   readonly popularTags: Locator;
   readonly articlePreview: Locator;
+  readonly paginationLinks: Locator;
 
   constructor(page: Page) {
     this.page = page;
-
     // New Article link
-    this.newArticleLink = page.getByRole('link', {
-      name: 'New Article',
-    });
-
+    this.newArticleLink = page.getByRole('link', { name: 'New Article', });
     // Created Playwright article
-    this.articleTitle = page.getByRole('link', {
-      name: 'Playwright Test Article',
-      exact: true,
-    });
-
+    this.articleTitle = page.getByRole('link', { name: 'Playwright Test Article', exact: true, });
     // Settings link
-    this.settingsLink = page.getByRole('link', {
-      name: 'Settings',
-    });
-
+    this.settingsLink = page.getByRole('link', { name: 'Settings', });
     // Popular Tags section
     this.popularTags = page.locator('.sidebar');
-
     // Article preview
     this.articlePreview = page.locator('div.article-preview');
+    this.paginationLinks = page.locator('.pagination .page-link');
   }
 
   // Go to Home page
@@ -61,8 +51,21 @@ export class HomePage {
 
   // Click tag dynamically
   async clickTag(tagName: string) {
-    await this.popularTags
-      .getByText(tagName, { exact: true })
-      .click();
+    await this.popularTags.getByText(tagName, { exact: true }).click();
   }
+  async clickLastPage() {
+  const count = await this.paginationLinks.count();
+
+  if (count > 0) {
+    const lastPage = this.paginationLinks.nth(count - 1);
+
+    await Promise.all([
+      this.page.waitForLoadState('networkidle'),
+      lastPage.click(),
+    ]);
+  }
+}
+  async clickLastArticle() {
+  await this.articlePreview.last().click();
+}
 }

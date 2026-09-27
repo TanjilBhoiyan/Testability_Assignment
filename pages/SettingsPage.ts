@@ -44,4 +44,7 @@ export class SettingsPage {
   async clickUpdateSettings() {
     await this.updateSettingsButton.click();
   }
+  async fillEmail(email: string) {
+  await this.emailInput.fill(email);
+}
 }

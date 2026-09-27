@@ -25,9 +25,10 @@ export class ArticlePage {
     {
         await this.deleteArticleButton.first().click();
     }
-    async clickEditArticle() 
-    {
-        await this.editArticleButton.first().click();
+    async clickEditArticle() {
+        const editButton = this.editArticleButton.first();
+        await editButton.waitFor({ state: 'visible' });
+        await editButton.click();
     }
 
     async fillArticleTitle(title: string) {

@@ -3,6 +3,7 @@ import { AuthApi } from '../../api/AuthApi';
 import { ArticleApi } from '../../api/ArticleApi';
 import { HomePage } from '../../pages/HomePage';
 import { ArticlePage } from '../../pages/ArticlePage';
+import { testData } from '../../utils/test-data';
 
 test('Delete Article successfully', async ({ page, request }) => {
   const authApi = new AuthApi(request);
@@ -12,17 +13,14 @@ test('Delete Article successfully', async ({ page, request }) => {
 
   // Login via API and get token
   const token = await authApi.loginAndGetToken();
-
-  // Generate unique article title
   const articleTitle = `Delete Article Test ${Date.now()}`;
 
   // Create article via API
   const article = await articleApi.createArticle(
     token,
-    articleTitle,
-    'Article created for delete testing',
-    'This article will be deleted using Playwright.',
-    'delete-test'
+    articleTitle, testData.deleteArticle.description,
+    testData.deleteArticle.body,
+    testData.deleteArticle.tag
   );
 
   // Verify article created via API
@@ -30,10 +28,27 @@ test('Delete Article successfully', async ({ page, request }) => {
 
   // Go to Home page
   await homePage.goto();
-
-  // Click API-created article
   await homePage.clickArticleByTitle(article.title);
 
-  // Click Delete Article button
+  // Delete Article
   await articlePage.clickDeleteArticle();
+  
+});
+
+
+test('Should not allow user to delete another user article', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const articlePage = new ArticlePage(page);
+
+  // Go to Home
+  await homePage.goto();
+
+  // Go to last pagination page
+  await homePage.clickLastPage();
+
+  // Open the last article
+  await homePage.clickLastArticle();
+
+  // Verify Delete Article button is not available
+  await expect(articlePage.deleteArticleButton).not.toBeVisible();
 });
