@@ -12,10 +12,7 @@ setup('authenticate user', async ({ page }) => {
     process.env.TEST_EMAIL!,
     process.env.TEST_PASSWORD!
   );
-
+  
   await expect(page).toHaveURL('/');
-
-  await page.context().storageState({
-    path: authFile,
-  });
+  await page.context().storageState({path: authFile,});
 });

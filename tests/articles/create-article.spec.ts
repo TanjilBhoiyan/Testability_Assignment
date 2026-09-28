@@ -12,15 +12,12 @@ test.describe.serial('Create Article Tests', () => {
     await homePage.goto();
     // Click New Article
     await homePage.clickNewArticle();
+    
     // Verify New Article page opened
     await expect(page).toHaveURL(/\/editor/);
-    // Fill Article Title
     await articlePage.fillArticleTitle(testData.article.title);
-    // Fill Article Description
     await articlePage.fillArticleDescription(testData.article.description);
-    // Fill Article Body
     await articlePage.fillArticleBody(testData.article.body);
-    // Fill Article Tag
     await articlePage.fillArticleTag(testData.article.tag);
     await articlePage.clickPublishArticle();
     await expect(page.getByText(testData.article.title, { exact: true }).first()).toBeVisible();
