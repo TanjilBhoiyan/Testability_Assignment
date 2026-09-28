@@ -1,6 +1,6 @@
 export const testData = {
     article: {
-    title: `Test Article1`,
+    title: `Test Article2`,
     description: 'This is a Playwright automation test',
     body: 'This article was created using Playwright automation.',
     tag: 'playwright',
